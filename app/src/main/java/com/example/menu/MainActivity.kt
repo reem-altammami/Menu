@@ -9,7 +9,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import com.example.menu.databinding.ActivityMainBinding
+import kotlin.math.log
 
+var x = true
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding :ActivityMainBinding
@@ -34,13 +36,15 @@ class MainActivity : AppCompatActivity() {
 
                 return true
             }
-            R.id.logout->{
-                val text:TextView=findViewById(R.id.main_text)
-                text.text = getText(R.string.login)
-                if (item.title == "Logout"){
-                    item.title = "login"
-                }
-                return true}
+
+            R.id.login ->{
+                true
+            }
+
+            R.id.logout ->{
+                true
+            }
+
                 R.id.contact ->{
 val intent = Intent(this,ContactUs::class.java)
                     this.startActivity(intent)
@@ -52,6 +56,24 @@ val intent = Intent(this,ContactUs::class.java)
             //  or an else to catch all unhandled cases.
             else ->  super.onOptionsItemSelected(item)
         }
+
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val login = menu?.findItem(R.id.login)
+        val logout = menu?.findItem(R.id.logout)
+        if (x){
+            x= !x
+            logout?.setVisible(true)
+            login?.setVisible(false)
+
+        }else{
+            x= !x
+            logout?.setVisible(false)
+            login?.setVisible(true)
+        }
+
+        return super.onPrepareOptionsMenu(menu)
     }
 
 
